@@ -2,40 +2,36 @@
 // Docs: https://dbml.dbdiagram.io/docs
 
 Table families {
-    family_id integer [primary key]
-    surname varchar(255) [not null]
+    id bigint [primary key]
+    family_name varchar(255) [not null, unique]
 }
 
-Table people {
-    person_id integer [primary key]
-    family_id integer [ref: > families.family_id]
+Table families_members {
+    person_id bigint [primary key]
+    family_id bigint [ref: > families.id]
     name varchar(255) [not null]
+    surname varchar(255) [not null]
     gender varchar(1) [not null]
-    age integer [not null]
+    birthday date [not null]
 }
 
 Table incomes {
-    income_id integer [primary key]
+    income_id bigint [primary key]
     sum numeric(14,2) [not null]
-    person_id integer [ref: > people.person_id]
+    person_id bigint [ref: > families_members.person_id]
     comment text
-    date date [not null]
+    timestamp timestamp [not null]
 }
 
 Table expenses {
-    expense_id integer [primary key]
+    expense_id bigint [primary key]
     sum decimal(14,2) [not null]
-    person_id integer [ref: > people.person_id]
-    category category [default: 'others']
-    date date [not null]
+    person_id bigint [ref: > families_members.person_id]
+    category_id integer [ref: - category.category_id]
+    timestamp timestamp [not null]
 }
 
-enum category {
-    supermarkets
-    clothes
-    transfers
-    beauty
-    pharmacy
-    education
-    others
+Table category {
+    category_id integer [primary key]
+    category_name varchar(255) [not null, unique]
 }
