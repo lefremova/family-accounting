@@ -1,11 +1,11 @@
-INSERT INTO families(surname) VALUES ('Petrovy');
-INSERT INTO families(surname) VALUES ('Novikovy');
+INSERT INTO families(family_name) VALUES ('Petrovy');
+INSERT INTO families(family_name) VALUES ('Novikovy_Petrovy');
 
-INSERT INTO people(family_id, name, gender, age) VALUES (1, 'Vladimir', 'm', 48);
-INSERT INTO people(family_id, name, gender, age) VALUES (1, 'Olga', 'f', 44);
-INSERT INTO people(family_id, name, gender, age) VALUES (1, 'Olesya', 'f', 18);
+INSERT INTO families_members(family_id, name, surname, gender, birthday) VALUES (1, 'Vladimir', 'Petrov', 'm', '1977-07-15');
+INSERT INTO families_members(family_id, name, surname, gender, birthday) VALUES (1, 'Olga', 'Petrova', 'f', '1981-04-16');
+INSERT INTO families_members(family_id, name, surname, gender, birthday) VALUES (1, 'Olesya', 'Petrova','f', '2007-02-20');
 
-INSERT INTO people(family_id, name, gender, age) VALUES (2, 'Boris', 'm', 35);
-INSERT INTO people(family_id, name, gender, age) VALUES (2, 'Anastasia', 'f', 35);
-INSERT INTO people(family_id, name, gender, age) VALUES (2, 'Konstantin', 'm', 15);
-INSERT INTO people(family_id, name, gender, age) VALUES (2, 'Darya', 'f', 10);
+INSERT INTO families_members(family_id, name, surname, gender, birthday) VALUES (2, 'Boris', 'Novikov', 'm', '1990-01-15');
+INSERT INTO families_members(family_id, name, surname, gender, birthday) VALUES (2, 'Anastasia', 'Petrova', 'f', '1990-07-23');
+INSERT INTO families_members(family_id, name, surname, gender, birthday) VALUES (2, 'Konstantin', 'Novikov', 'm', '2010-02-13');
+INSERT INTO families_members(family_id, name, surname, gender, birthday) VALUES (2, 'Darya', 'Novikova', 'f', '2013-03-07');
