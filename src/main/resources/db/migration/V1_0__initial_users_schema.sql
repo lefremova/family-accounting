@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `families` (
 
 CREATE TABLE IF NOT EXISTS `families_members` (
 
-    `person_id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `family_member_id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `family_id` bigint NOT NULL,
     FOREIGN KEY (family_id) REFERENCES families(id),
     `name` varchar(255) NOT NULL,
