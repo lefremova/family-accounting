@@ -33,3 +33,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Spring Shell Logs and Spring Logs ###
+*.log
+logs/
