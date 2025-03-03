@@ -27,11 +27,11 @@ Table expenses {
     expense_id bigint [primary key]
     sum decimal(14,2) [not null]
     person_id bigint [ref: > families_members.person_id]
-    category_id integer [ref: - category.category_id]
+    category_id bigint [ref: - category.category_id]
     timestamp timestamp [not null]
 }
 
 Table category {
-    category_id integer [primary key]
+    category_id bigint [primary key]
     category_name varchar(255) [not null, unique]
 }
