@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `families_members` (
     `name` varchar(255) NOT NULL,
     `surname` varchar(255) NOT NULL,
     `gender` varchar(1) NOT NULL,
-    `birthday` date NOT NULL
+    `birthday` date NOT NULL,
+    UNIQUE (name, surname, birthday)
 
 );
