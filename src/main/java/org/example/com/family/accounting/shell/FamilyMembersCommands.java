@@ -1,7 +1,8 @@
 package org.example.com.family.accounting.shell;
 
 import org.example.com.family.accounting.domain.object.FamilyMember;
-import org.example.com.family.accounting.repository.FamilyMemberRepository;
+import org.example.com.family.accounting.exceptions.DuplicateObjectException;
+import org.example.com.family.accounting.services.FamilyMembersService;
 import org.example.com.family.accounting.utils.Gender;
 import org.jline.reader.LineReader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class FamilyMembersCommands {
     private LineReader lineReader;
 
     @Autowired
-    private FamilyMemberRepository familyMemberRepository;
+    private FamilyMembersService familyMembersService;
 
     private static final String FAMILY_MEMBERS_TABLE_NAME = getMessage("family.members.table.name");;
     private static final String FAMILY_MEMBERS_TABLE_SURNAME = getMessage("family.members.table.surname");;
@@ -51,13 +52,11 @@ public class FamilyMembersCommands {
     private static final String INPUT_GENDER_ERROR_FORMAT = getMessage("input.gender.error.format");
     private static final String INPUT_BIRTHDAY_ERROR_FORMAT = getMessage("input.birthday.error.format");
 
-    private static final String ADD_FAMILY_MEMBER_SUCCESS = getMessage("add.family.member.success");
-
     @ShellMethod(key = "вывести-членов-семьи",
                  value = "Вывести всех членов семьи в виде таблицы." +
                          "В качестве обязательного параметра указывается название семьи.")
     public Table listFamilyMembers(@ShellOption(value = "название_семьи") String familyName) {
-        List<FamilyMember> familyMembers = familyMemberRepository.getAllFamilyMembers(familyName);
+        List<FamilyMember> familyMembers = familyMembersService.getAllFamilyMembers(familyName);
 
         var model = new BeanListTableModel<>(familyMembers, crerateFamilyMembersTableHeaders());
 
@@ -100,8 +99,11 @@ public class FamilyMembersCommands {
             return INPUT_BIRTHDAY_ERROR_FORMAT;
         }
 
-        familyMemberRepository.addFamilyMember(familyName, familyMember);
-//        return ADD_FAMILY_MEMBER_SUCCESS + " " + familyName + ".";
+        try {
+            familyMembersService.addFamilyMember(familyName, familyMember);
+        } catch (DuplicateObjectException e) {
+            return getMessage("add.family.member.error.duplicate", new Object[] {familyName});
+        }
         return getMessage("add.family.member.success", new Object[] {familyName});
     }
 }

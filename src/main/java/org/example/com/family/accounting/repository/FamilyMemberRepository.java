@@ -1,6 +1,7 @@
 package org.example.com.family.accounting.repository;
 
 import org.example.com.family.accounting.domain.object.FamilyMember;
+import org.example.com.family.accounting.exceptions.DuplicateObjectException;
 
 import java.util.List;
 
@@ -11,17 +12,17 @@ public interface FamilyMemberRepository {
     /**
      * Returns all family members of the defined family.
      *
-     * @param familyName the unique family name
-     * @return the list of all family members
+     * @param familyID the family identifier
+     * @return the list of all family members corresponding to the family with the provided id or an empty list
      */
-    List<FamilyMember> getAllFamilyMembers(String familyName);
+    List<FamilyMember> getAllFamilyMembers(long familyID);
 
     /**
-     * Adds family member to the defined family.
-     * If there is no such family, adds new family before.
+     * Adds the defined family member.
      *
-     * @param familyName the unique family name
-     * @param familyMember family member that should be added to the defined family
+     * @param familyMember family member that should be added
+     * @throws DuplicateObjectException if family member
+     * with the unique group of parameters already exists
      */
-    void addFamilyMember(String familyName, FamilyMember familyMember);
+    void addFamilyMember(FamilyMember familyMember) throws DuplicateObjectException;
 }

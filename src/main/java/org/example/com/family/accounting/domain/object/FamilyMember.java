@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class FamilyMember {
     private long id;
-    private long familyId;
+    private Family family;
     private String name;
     private String surname;
     private Gender gender;
